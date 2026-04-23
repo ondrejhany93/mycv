@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: TVOJE_GITHUB_USERNAME/aidvokat
+  repo: ondrejhany93/mycv
   branch: main
 
 media_folder: "images"
