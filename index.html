@@ -161,20 +161,22 @@
     justify-content: center;
   }
   .hero-visual {
-    width: 320px;
-    height: 420px;
-    border: 1px solid rgba(122,158,130,0.2);
+    width: 420px;
+    height: 560px;
     position: relative;
     opacity: 0;
     animation: fadeIn 1.2s 1s forwards;
-    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
   }
   .hero-visual img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: center top;
+    object-fit: contain;
+    object-position: bottom center;
     display: block;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));
   }
 
   /* ---- SECTIONS ---- */
@@ -479,7 +481,7 @@
   </div>
   <div class="hero-right">
     <div class="hero-visual">
-      <img src="Ondra_Hanak_1.jpg" alt="Ondřej Hanák" />
+      <img src="MyPhoto.png" alt="Ondřej Hanák" />
     </div>
   </div>
 </section>
