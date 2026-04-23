@@ -1,6 +1,6 @@
 {
   "hero": {
-    "eyebrow": "Advokát · Praha",
+    "eyebrow": "Advokát v Brně a Praze",
     "name_line1": "Ondřej",
     "name_line2": "Hanák",
     "desc": "Právo dokáže být složité. Já se snažím, aby nemuselo být. Pomáhám firmám i jednotlivcům zorientovat se v technologickém právu, IP a GDPR – bez zbytečného právnického žargonu, s pochopením pro to, jak technologie skutečně fungují."
@@ -84,8 +84,8 @@
   ],
   "kontakt": {
     "text": "Hledáš advokáta, který rozumí technologiím stejně dobře jako právu? Ozvi se – rád proberu tvůj případ.",
-    "email": "ondrej@aidvokat.cz",
+    "email": "ondrej.hany@gmail.com",
     "email_label": "Napsat e-mail",
-    "linkedin": "https://linkedin.com/in/ondrejhanak"
+    "linkedin": "https://www.linkedin.com/in/ondrahanak/"
   }
 }
