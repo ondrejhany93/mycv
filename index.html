@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ondřej Hanák – Advokát</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --forest: #1a2e1e;
+    --forest-mid: #2d4a33;
+    --forest-light: #3d6644;
+    --sage: #7a9e82;
+    --sage-light: #a8c4ae;
+    --cream: #f5f0e8;
+    --cream-dark: #ede6d8;
+    --text-dark: #1a1a18;
+    --text-mid: #4a4a42;
+    --text-light: #7a7a72;
+    --accent: #c8a96e;
+    --accent-light: #dfc49a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ---- NAV ---- */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.25rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s, backdrop-filter 0.3s;
+  }
+  nav.scrolled {
+    background: rgba(245, 240, 232, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(26,46,30,0.08);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--cream);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  nav.scrolled .nav-logo { color: var(--forest); }
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.7);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  nav.scrolled .nav-links a { color: var(--text-mid); }
+  .nav-links a:hover { color: var(--cream); }
+  nav.scrolled .nav-links a:hover { color: var(--forest); }
+
+  /* ---- HERO ---- */
+  .hero {
+    min-height: 100vh;
+    background: var(--forest);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-texture {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(61,102,68,0.3) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(200,169,110,0.08) 0%, transparent 50%);
+  }
+  .hero-left {
+    position: relative;
+    z-index: 2;
+    padding: 12rem 4rem 6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.3s forwards;
+  }
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--cream);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s forwards;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent-light);
+  }
+  .hero-desc {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--sage-light);
+    max-width: 420px;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.7s forwards;
+  }
+  .hero-cta {
+    margin-top: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.9s forwards;
+  }
+  .btn-primary {
+    display: inline-block;
+    padding: 0.85rem 2.2rem;
+    background: var(--accent);
+    color: var(--forest);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--accent-light); transform: translateY(-1px); }
+
+  .hero-right {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-visual {
+    width: 320px;
+    height: 320px;
+    border: 1px solid rgba(122,158,130,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    opacity: 0;
+    animation: fadeIn 1.2s 1s forwards;
+  }
+  .hero-visual::before {
+    content: '';
+    position: absolute;
+    inset: 20px;
+    border: 1px solid rgba(200,169,110,0.15);
+    border-radius: 50%;
+  }
+  .hero-initials {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem;
+    font-weight: 300;
+    color: rgba(245,240,232,0.15);
+    letter-spacing: 0.1em;
+  }
+
+  /* ---- SECTIONS ---- */
+  section { padding: 6rem 0; }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 3rem;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--forest);
+    margin-bottom: 3rem;
+  }
+
+  /* ---- SPECIALIZACE ---- */
+  #specializace { background: var(--cream-dark); }
+
+  .spec-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(26,46,30,0.1);
+    border: 1px solid rgba(26,46,30,0.1);
+  }
+  .spec-item {
+    background: var(--cream-dark);
+    padding: 2.5rem 2rem;
+    transition: background 0.3s;
+    cursor: default;
+  }
+  .spec-item:hover { background: var(--cream); }
+  .spec-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: rgba(26,46,30,0.12);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .spec-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--forest);
+    margin-bottom: 0.75rem;
+  }
+  .spec-desc {
+    font-size: 0.85rem;
+    line-height: 1.65;
+    color: var(--text-light);
+    font-weight: 300;
+  }
+
+  /* ---- ČASOVÁ OSA ---- */
+  #zkusenosti { background: var(--cream); }
+
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--forest-light), transparent);
+  }
+  .timeline-item {
+    position: relative;
+    padding-bottom: 3.5rem;
+    padding-left: 2rem;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2.4rem;
+    top: 8px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--forest-light);
+    border: 2px solid var(--cream);
+    box-shadow: 0 0 0 1px var(--forest-light);
+  }
+  .timeline-item.highlight::before {
+    background: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+  .timeline-period {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 0.4rem;
+  }
+  .timeline-role {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--forest);
+    margin-bottom: 0.25rem;
+  }
+  .timeline-org {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--sage);
+    margin-bottom: 0.75rem;
+  }
+  .timeline-detail {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--text-mid);
+    font-weight: 300;
+    max-width: 560px;
+  }
+  .timeline-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+  .tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    padding: 0.3rem 0.75rem;
+    border: 1px solid rgba(26,46,30,0.2);
+    color: var(--text-mid);
+  }
+
+  /* ---- TESTIMONIALS ---- */
+  #testimonials { background: var(--forest); }
+  #testimonials .section-label { color: var(--sage); }
+  #testimonials .section-title { color: var(--cream); }
+
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .testimonial-card {
+    border: 1px solid rgba(122,158,130,0.2);
+    padding: 2.5rem;
+    position: relative;
+    transition: border-color 0.3s;
+  }
+  .testimonial-card:hover { border-color: rgba(200,169,110,0.3); }
+  .testimonial-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+  }
+  .testimonial-text {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--sage-light);
+    font-weight: 300;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+  }
+  .testimonial-author {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--cream);
+    letter-spacing: 0.05em;
+  }
+  .testimonial-position {
+    font-size: 0.78rem;
+    color: var(--sage);
+    margin-top: 0.2rem;
+  }
+
+  /* ---- KONTAKT ---- */
+  #kontakt { background: var(--cream-dark); }
+
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+  .contact-text {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-mid);
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+  }
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--text-mid);
+    font-size: 0.9rem;
+    transition: color 0.2s;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(26,46,30,0.1);
+  }
+  .contact-link:hover { color: var(--forest); }
+  .contact-icon {
+    width: 36px; height: 36px;
+    background: var(--forest);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .contact-icon svg { width: 16px; height: 16px; fill: var(--cream); }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background: var(--forest);
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    color: var(--sage);
+  }
+  .footer-copy {
+    font-size: 0.75rem;
+    color: rgba(122,158,130,0.5);
+  }
+
+  /* ---- ANIMATIONS ---- */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s, transform 0.7s;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 8rem 1.5rem 4rem; }
+    .container { padding: 0 1.5rem; }
+    section { padding: 4rem 0; }
+    .spec-grid { grid-template-columns: 1fr; }
+    .contact-layout { grid-template-columns: 1fr; gap: 2rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#" class="nav-logo">OH</a>
+  <ul class="nav-links">
+    <li><a href="#specializace">Specializace</a></li>
+    <li><a href="#zkusenosti">Zkušenosti</a></li>
+    <li><a href="#testimonials">Reference</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="uvod">
+  <div class="hero-texture"></div>
+  <div class="hero-left">
+    <p class="hero-eyebrow" id="hero-eyebrow"></p>
+    <h1 class="hero-name" id="hero-name"></h1>
+    <p class="hero-desc" id="hero-desc"></p>
+    <div class="hero-cta">
+      <a href="#kontakt" class="btn-primary">Napsat mi</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-visual">
+      <span class="hero-initials">OH</span>
+    </div>
+  </div>
+</section>
+
+<section id="specializace">
+  <div class="container">
+    <p class="section-label reveal">Co dělám</p>
+    <h2 class="section-title reveal">Specializace</h2>
+    <div class="spec-grid" id="spec-grid"></div>
+  </div>
+</section>
+
+<section id="zkusenosti">
+  <div class="container">
+    <p class="section-label reveal">Kariéra & vzdělání</p>
+    <h2 class="section-title reveal">Zkušenosti</h2>
+    <div class="timeline" id="timeline"></div>
+  </div>
+</section>
+
+<section id="testimonials">
+  <div class="container">
+    <p class="section-label reveal">Co říkají klienti</p>
+    <h2 class="section-title reveal">Reference</h2>
+    <div class="testimonial-grid" id="testimonial-grid"></div>
+  </div>
+</section>
+
+<section id="kontakt">
+  <div class="container">
+    <div class="contact-layout">
+      <div class="reveal">
+        <p class="section-label">Spojme se</p>
+        <h2 class="section-title">Kontakt</h2>
+        <p class="contact-text" id="contact-text"></p>
+        <a href="#" class="btn-primary" id="contact-email-btn"></a>
+      </div>
+      <div class="contact-links reveal" id="contact-links"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-name">Ondřej Hanák – Advokát</span>
+  <span class="footer-copy" id="footer-copy"></span>
+</footer>
+
+<script>
+fetch('content.json')
+  .then(r => r.json())
+  .then(DATA => {
+
+    // HERO
+    document.getElementById('hero-eyebrow').textContent = DATA.hero.eyebrow;
+    document.getElementById('hero-name').innerHTML =
+      DATA.hero.name_line1 + '<br><em>' + DATA.hero.name_line2 + '</em>';
+    document.getElementById('hero-desc').textContent = DATA.hero.desc;
+
+    // SPECIALIZACE
+    const specGrid = document.getElementById('spec-grid');
+    DATA.specializace.forEach((s, i) => {
+      const el = document.createElement('div');
+      el.className = 'spec-item reveal';
+      el.innerHTML = `
+        <div class="spec-number">0${i+1}</div>
+        <div class="spec-title">${s.title}</div>
+        <div class="spec-desc">${s.desc}</div>`;
+      specGrid.appendChild(el);
+    });
+
+    // TIMELINE
+    const timeline = document.getElementById('timeline');
+    DATA.timeline.forEach(t => {
+      const tagsHtml = t.tags && t.tags.length
+        ? `<div class="timeline-tags">${t.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>`
+        : '';
+      const el = document.createElement('div');
+      el.className = `timeline-item ${t.highlight ? 'highlight' : ''} reveal`;
+      el.innerHTML = `
+        <div class="timeline-period">${t.period}</div>
+        <div class="timeline-role">${t.role}</div>
+        ${t.org ? `<div class="timeline-org">${t.org}</div>` : ''}
+        <div class="timeline-detail">${t.detail}</div>
+        ${tagsHtml}`;
+      timeline.appendChild(el);
+    });
+
+    // TESTIMONIALS
+    const tGrid = document.getElementById('testimonial-grid');
+    DATA.testimonials.forEach(t => {
+      const el = document.createElement('div');
+      el.className = 'testimonial-card reveal';
+      el.innerHTML = `
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">${t.text}</p>
+        <div class="testimonial-author">${t.author}</div>
+        <div class="testimonial-position">${t.position}</div>`;
+      tGrid.appendChild(el);
+    });
+
+    // KONTAKT
+    document.getElementById('contact-text').textContent = DATA.kontakt.text;
+    const emailBtn = document.getElementById('contact-email-btn');
+    emailBtn.textContent = DATA.kontakt.email_label;
+    emailBtn.href = 'mailto:' + DATA.kontakt.email;
+
+    document.getElementById('contact-links').innerHTML = `
+      <a href="mailto:${DATA.kontakt.email}" class="contact-link">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </div>
+        <span>${DATA.kontakt.email}</span>
+      </a>
+      <a href="${DATA.kontakt.linkedin}" target="_blank" class="contact-link">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+        </div>
+        <span>LinkedIn</span>
+      </a>`;
+
+    // FOOTER
+    document.getElementById('footer-copy').textContent =
+      '© ' + new Date().getFullYear() + ' Ondřej Hanák. Všechna práva vyhrazena.';
+
+    // NAV scroll
+    window.addEventListener('scroll', () => {
+      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // REVEAL
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  })
+  .catch(err => console.error('Chyba při načítání content.json:', err));
+</script>
+</body>
+</html>

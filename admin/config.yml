@@ -1,0 +1,59 @@
+backend:
+  name: github
+  repo: TVOJE_GITHUB_USERNAME/aidvokat
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: "obsah"
+    label: "Obsah webu"
+    files:
+      - name: "hlavni"
+        label: "Celý web"
+        file: "content.json"
+        fields:
+          - label: "Hero sekce"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Popisek nad jménem", name: "eyebrow", widget: "string" }
+              - { label: "Jméno (řádek 1)", name: "name_line1", widget: "string" }
+              - { label: "Jméno (řádek 2)", name: "name_line2", widget: "string" }
+              - { label: "Úvodní text", name: "desc", widget: "text" }
+
+          - label: "Specializace"
+            name: "specializace"
+            widget: "list"
+            fields:
+              - { label: "Název", name: "title", widget: "string" }
+              - { label: "Popis", name: "desc", widget: "text" }
+
+          - label: "Zkušenosti (časová osa)"
+            name: "timeline"
+            widget: "list"
+            fields:
+              - { label: "Období", name: "period", widget: "string" }
+              - { label: "Pozice / název", name: "role", widget: "string" }
+              - { label: "Organizace", name: "org", widget: "string", required: false }
+              - { label: "Popis", name: "detail", widget: "text" }
+              - { label: "Tagy (oddělené čárkou)", name: "tags", widget: "list", required: false }
+              - { label: "Zvýraznit?", name: "highlight", widget: "boolean", default: false }
+
+          - label: "Reference (testimonials)"
+            name: "testimonials"
+            widget: "list"
+            fields:
+              - { label: "Text reference", name: "text", widget: "text" }
+              - { label: "Jméno", name: "author", widget: "string" }
+              - { label: "Pozice a firma", name: "position", widget: "string" }
+
+          - label: "Kontakt"
+            name: "kontakt"
+            widget: "object"
+            fields:
+              - { label: "Text", name: "text", widget: "text" }
+              - { label: "E-mail", name: "email", widget: "string" }
+              - { label: "Popisek tlačítka", name: "email_label", widget: "string" }
+              - { label: "LinkedIn URL", name: "linkedin", widget: "string" }

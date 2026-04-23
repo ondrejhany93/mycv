@@ -1,0 +1,91 @@
+{
+  "hero": {
+    "eyebrow": "Advokát · Praha",
+    "name_line1": "Ondřej",
+    "name_line2": "Hanák",
+    "desc": "Právo dokáže být složité. Já se snažím, aby nemuselo být. Pomáhám firmám i jednotlivcům zorientovat se v technologickém právu, IP a GDPR – bez zbytečného právnického žargonu, s pochopením pro to, jak technologie skutečně fungují."
+  },
+  "specializace": [
+    {
+      "title": "Duševní vlastnictví",
+      "desc": "Ochranné známky, autorská práva, ochrana softwaru, databází a designu."
+    },
+    {
+      "title": "GDPR & soukromí",
+      "desc": "Compliance, zpracování osobních údajů, biometrická data, DPO podpora."
+    },
+    {
+      "title": "E-commerce & digitální smlouvy",
+      "desc": "Obchodní podmínky, spotřebitelské právo, reklamace, digitální platby."
+    },
+    {
+      "title": "Softwarové právo",
+      "desc": "Licenční smlouvy, SaaS ujednání, open source, smlouvy s dodavateli softwaru."
+    },
+    {
+      "title": "AI & kybernetická bezpečnost",
+      "desc": "EU AI Act, NIS2, hodnocení rizik AI systémů, bezpečnostní dokumentace."
+    },
+    {
+      "title": "Videohry & interaktivní média",
+      "desc": "IP ochrana her, licencování, in-game ekonomiky, esport a streamingová práva."
+    }
+  ],
+  "timeline": [
+    {
+      "period": "2023 – 2026",
+      "role": "Advokát",
+      "org": "eLegal",
+      "detail": "Poradenství v oblasti technologického práva, IP, GDPR a e-commerce. Klienti ze segmentu SaaS, e-shopů a fintech.",
+      "tags": ["Tech právo", "IP", "GDPR", "AI Act", "E-commerce"],
+      "highlight": true
+    },
+    {
+      "period": "2018 – 2023",
+      "role": "Advokátní koncipient / Advokát",
+      "org": "KROUPA HELÁN advokátní kancelář",
+      "detail": "Komplexní právní praxe s důrazem na obchodní právo a litigaci.",
+      "tags": ["Obchodní právo", "Litigace"],
+      "highlight": false
+    },
+    {
+      "period": "2013 – 2018",
+      "role": "Magisterské studium práva",
+      "org": "Masarykova univerzita – Právnická fakulta",
+      "detail": "Brno. Zaměření na soukromé právo.",
+      "tags": [],
+      "highlight": false
+    },
+    {
+      "period": "Přednášky & aktivity",
+      "role": "Vzdělávání & komunita",
+      "org": "",
+      "detail": "Doplň zde své přednášky, konference a další aktivity.",
+      "tags": [],
+      "highlight": false
+    }
+  ],
+  "testimonials": [
+    {
+      "text": "Zde bude testimonial od klienta. Nahraď tento text skutečnou referencí se svolením eLegal.",
+      "author": "Jméno Příjmení",
+      "position": "Pozice, Společnost"
+    },
+    {
+      "text": "Zde bude testimonial od klienta. Nahraď tento text skutečnou referencí se svolením eLegal.",
+      "author": "Jméno Příjmení",
+      "position": "Pozice, Společnost"
+    },
+    {
+      "text": "Zde bude testimonial od klienta. Nahraď tento text skutečnou referencí se svolením eLegal.",
+      "author": "Jméno Příjmení",
+      "position": "Pozice, Společnost"
+    }
+  ],
+  "kontakt": {
+    "text": "Hledáš advokáta, který rozumí technologiím stejně dobře jako právu? Ozvi se – rád proberu tvůj případ.",
+    "email": "ondrej@aidvokat.cz",
+    "email_label": "Napsat e-mail",
+    "linkedin": "https://linkedin.com/in/ondrejhanak"
+  }
+}
