@@ -9,6 +9,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
+  /* ===================== OBSAH – EDITUJ ZDE ===================== */
+  /* Vše níže se řídí daty v JS sekci na konci souboru */
+  /* ============================================================= */
+
   :root {
     --forest: #1a2e1e;
     --forest-mid: #2d4a33;
@@ -25,6 +29,7 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
+
   html { scroll-behavior: smooth; }
 
   body {
@@ -55,11 +60,9 @@
     font-size: 1.1rem;
     font-weight: 600;
     letter-spacing: 0.05em;
-    color: var(--cream);
+    color: var(--forest);
     text-decoration: none;
-    transition: color 0.3s;
   }
-  nav.scrolled .nav-logo { color: var(--forest); }
   .nav-links {
     display: flex;
     gap: 2rem;
@@ -69,13 +72,11 @@
     font-size: 0.82rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: rgba(245,240,232,0.7);
+    color: var(--text-mid);
     text-decoration: none;
     transition: color 0.2s;
   }
-  nav.scrolled .nav-links a { color: var(--text-mid); }
-  .nav-links a:hover { color: var(--cream); }
-  nav.scrolled .nav-links a:hover { color: var(--forest); }
+  .nav-links a:hover { color: var(--forest); }
 
   /* ---- HERO ---- */
   .hero {
@@ -219,7 +220,7 @@
 
   .spec-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1px;
     background: rgba(26,46,30,0.1);
     border: 1px solid rgba(26,46,30,0.1);
@@ -392,7 +393,7 @@
   .contact-links {
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: 1rem;
   }
   .contact-link {
     display: flex;
@@ -402,7 +403,7 @@
     color: var(--text-mid);
     font-size: 0.9rem;
     transition: color 0.2s;
-    padding: 1rem 0;
+    padding-bottom: 1rem;
     border-bottom: 1px solid rgba(26,46,30,0.1);
   }
   .contact-link:hover { color: var(--forest); }
@@ -441,6 +442,7 @@
     from { opacity: 0; }
     to { opacity: 1; }
   }
+
   .reveal {
     opacity: 0;
     transform: translateY(20px);
@@ -460,7 +462,6 @@
     .hero-left { padding: 8rem 1.5rem 4rem; }
     .container { padding: 0 1.5rem; }
     section { padding: 4rem 0; }
-    .spec-grid { grid-template-columns: 1fr; }
     .contact-layout { grid-template-columns: 1fr; gap: 2rem; }
     footer { flex-direction: column; gap: 0.5rem; text-align: center; }
   }
@@ -468,6 +469,7 @@
 </head>
 <body>
 
+<!-- NAV -->
 <nav id="nav">
   <a href="#" class="nav-logo">OH</a>
   <ul class="nav-links">
@@ -478,6 +480,7 @@
   </ul>
 </nav>
 
+<!-- HERO -->
 <section class="hero" id="uvod">
   <div class="hero-texture"></div>
   <div class="hero-left">
@@ -495,6 +498,7 @@
   </div>
 </section>
 
+<!-- SPECIALIZACE -->
 <section id="specializace">
   <div class="container">
     <p class="section-label reveal">Co dělám</p>
@@ -503,6 +507,7 @@
   </div>
 </section>
 
+<!-- ZKUŠENOSTI -->
 <section id="zkusenosti">
   <div class="container">
     <p class="section-label reveal">Kariéra & vzdělání</p>
@@ -511,6 +516,7 @@
   </div>
 </section>
 
+<!-- TESTIMONIALS -->
 <section id="testimonials">
   <div class="container">
     <p class="section-label reveal">Co říkají klienti</p>
@@ -519,6 +525,7 @@
   </div>
 </section>
 
+<!-- KONTAKT -->
 <section id="kontakt">
   <div class="container">
     <div class="contact-layout">
@@ -533,101 +540,192 @@
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <span class="footer-name">Ondřej Hanák – Advokát</span>
   <span class="footer-copy" id="footer-copy"></span>
 </footer>
 
 <script>
-fetch('content.json')
-  .then(r => r.json())
-  .then(DATA => {
+/* ================================================================
+   OBSAH WEBU – EDITUJ POUZE TUTO SEKCI
+   ================================================================ */
+const DATA = {
+  hero: {
+    eyebrow: "Advokát · Praha",
+    name: "Ondřej\nHanák",
+    desc: "Právo dokáže být složité. Já se snažím, aby nemuselo být. Pomáhám firmám i jednotlivcům zorientovat se v technologickém právu, IP a GDPR – bez zbytečného právnického žargonu, s pochopením pro to, jak technologie skutečně fungují."
+  },
 
-    // HERO
-    document.getElementById('hero-eyebrow').textContent = DATA.hero.eyebrow;
-    document.getElementById('hero-name').innerHTML =
-      DATA.hero.name_line1 + '<br><em>' + DATA.hero.name_line2 + '</em>';
-    document.getElementById('hero-desc').textContent = DATA.hero.desc;
+  specializace: [
+    {
+      title: "Technologické právo",
+      desc: "Smlouvy, licenční ujednání a právní poradenství pro tech firmy a startupy."
+    },
+    {
+      title: "Duševní vlastnictví",
+      desc: "Ochranné známky, autorská práva, ochrana softwaru a databází."
+    },
+    {
+      title: "GDPR & soukromí",
+      desc: "Compliance, zpracování osobních údajů, biometrická data, DPO podpora."
+    },
+    {
+      title: "E-commerce & digitální smlouvy",
+      desc: "Obchodní podmínky, spotřebitelské právo, reklamace, digitální platby."
+    },
+    {
+      title: "AI regulace & EU AI Act",
+      desc: "Audit AI systémů, hodnocení rizik, compliance s novou evropskou regulací."
+    }
+  ],
 
-    // SPECIALIZACE
-    const specGrid = document.getElementById('spec-grid');
-    DATA.specializace.forEach((s, i) => {
-      const el = document.createElement('div');
-      el.className = 'spec-item reveal';
-      el.innerHTML = `
-        <div class="spec-number">0${i+1}</div>
-        <div class="spec-title">${s.title}</div>
-        <div class="spec-desc">${s.desc}</div>`;
-      specGrid.appendChild(el);
-    });
+  timeline: [
+    {
+      period: "2023 – 2026",
+      role: "Advokát",
+      org: "eLegal",
+      detail: "Poradenství v oblasti technologického práva, IP, GDPR a e-commerce. Klienti ze segmentu SaaS, e-shopů a fintech.",
+      tags: ["Tech právo", "IP", "GDPR", "AI Act", "E-commerce"],
+      highlight: true
+    },
+    {
+      period: "2018 – 2023",
+      role: "Advokátní koncipient / Advokát",
+      org: "KROUPA HELÁN advokátní kancelář",
+      detail: "Komplexní právní praxe s důrazem na obchodní právo a litigaci.",
+      tags: ["Obchodní právo", "Litigace"],
+      highlight: false
+    },
+    {
+      period: "2013 – 2018",
+      role: "Magisterské studium práva",
+      org: "Masarykova univerzita – Právnická fakulta",
+      detail: "Brno. Zaměření na soukromé právo.",
+      tags: [],
+      highlight: false
+    },
+    {
+      period: "Přednášky & aktivity",
+      role: "Vzdělávání & komunita",
+      org: "",
+      detail: "Doplň zde své přednášky, konference a další aktivity.",
+      tags: [],
+      highlight: false
+    }
+  ],
 
-    // TIMELINE
-    const timeline = document.getElementById('timeline');
-    DATA.timeline.forEach(t => {
-      const tagsHtml = t.tags && t.tags.length
-        ? `<div class="timeline-tags">${t.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>`
-        : '';
-      const el = document.createElement('div');
-      el.className = `timeline-item ${t.highlight ? 'highlight' : ''} reveal`;
-      el.innerHTML = `
-        <div class="timeline-period">${t.period}</div>
-        <div class="timeline-role">${t.role}</div>
-        ${t.org ? `<div class="timeline-org">${t.org}</div>` : ''}
-        <div class="timeline-detail">${t.detail}</div>
-        ${tagsHtml}`;
-      timeline.appendChild(el);
-    });
+  testimonials: [
+    {
+      text: "Zde bude testimonial od klienta. Nahraď tento text skutečnou referencí se svolením eLegal.",
+      author: "Jméno Příjmení",
+      position: "Pozice, Společnost"
+    },
+    {
+      text: "Zde bude testimonial od klienta. Nahraď tento text skutečnou referencí se svolením eLegal.",
+      author: "Jméno Příjmení",
+      position: "Pozice, Společnost"
+    },
+    {
+      text: "Zde bude testimonial od klienta. Nahraď tento text skutečnou referencí se svolením eLegal.",
+      author: "Jméno Příjmení",
+      position: "Pozice, Společnost"
+    }
+  ],
 
-    // TESTIMONIALS
-    const tGrid = document.getElementById('testimonial-grid');
-    DATA.testimonials.forEach(t => {
-      const el = document.createElement('div');
-      el.className = 'testimonial-card reveal';
-      el.innerHTML = `
-        <div class="testimonial-quote">"</div>
-        <p class="testimonial-text">${t.text}</p>
-        <div class="testimonial-author">${t.author}</div>
-        <div class="testimonial-position">${t.position}</div>`;
-      tGrid.appendChild(el);
-    });
+  kontakt: {
+    text: "Hledáš advokáta, který rozumí technologiím stejně dobře jako právu? Ozvi se – rád proberu tvůj případ.",
+    email: "ondrej@aidvokat.cz",
+    emailLabel: "Napsat e-mail",
+    linkedin: "https://linkedin.com/in/ondrejhanak",
+  }
+};
+/* ================================================================
+   KONEC EDITOVATELNÉ SEKCE
+   ================================================================ */
 
-    // KONTAKT
-    document.getElementById('contact-text').textContent = DATA.kontakt.text;
-    const emailBtn = document.getElementById('contact-email-btn');
-    emailBtn.textContent = DATA.kontakt.email_label;
-    emailBtn.href = 'mailto:' + DATA.kontakt.email;
+// RENDER HERO
+document.getElementById('hero-eyebrow').textContent = DATA.hero.eyebrow;
+const nameParts = DATA.hero.name.split('\n');
+document.getElementById('hero-name').innerHTML =
+  nameParts[0] + '<br><em>' + nameParts[1] + '</em>';
+document.getElementById('hero-desc').textContent = DATA.hero.desc;
 
-    document.getElementById('contact-links').innerHTML = `
-      <a href="mailto:${DATA.kontakt.email}" class="contact-link">
-        <div class="contact-icon">
-          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        </div>
-        <span>${DATA.kontakt.email}</span>
-      </a>
-      <a href="${DATA.kontakt.linkedin}" target="_blank" class="contact-link">
-        <div class="contact-icon">
-          <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-        </div>
-        <span>LinkedIn</span>
-      </a>`;
+// RENDER SPECIALIZACE
+const specGrid = document.getElementById('spec-grid');
+DATA.specializace.forEach((s, i) => {
+  specGrid.innerHTML += `
+    <div class="spec-item reveal">
+      <div class="spec-number">0${i+1}</div>
+      <div class="spec-title">${s.title}</div>
+      <div class="spec-desc">${s.desc}</div>
+    </div>`;
+});
 
-    // FOOTER
-    document.getElementById('footer-copy').textContent =
-      '© ' + new Date().getFullYear() + ' Ondřej Hanák. Všechna práva vyhrazena.';
+// RENDER TIMELINE
+const timeline = document.getElementById('timeline');
+DATA.timeline.forEach(t => {
+  const tagsHtml = t.tags.length
+    ? `<div class="timeline-tags">${t.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>`
+    : '';
+  timeline.innerHTML += `
+    <div class="timeline-item ${t.highlight ? 'highlight' : ''} reveal">
+      <div class="timeline-period">${t.period}</div>
+      <div class="timeline-role">${t.role}</div>
+      ${t.org ? `<div class="timeline-org">${t.org}</div>` : ''}
+      <div class="timeline-detail">${t.detail}</div>
+      ${tagsHtml}
+    </div>`;
+});
 
-    // NAV scroll
-    window.addEventListener('scroll', () => {
-      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
-    });
+// RENDER TESTIMONIALS
+const tGrid = document.getElementById('testimonial-grid');
+DATA.testimonials.forEach(t => {
+  tGrid.innerHTML += `
+    <div class="testimonial-card reveal">
+      <div class="testimonial-quote">"</div>
+      <p class="testimonial-text">${t.text}</p>
+      <div class="testimonial-author">${t.author}</div>
+      <div class="testimonial-position">${t.position}</div>
+    </div>`;
+});
 
-    // REVEAL
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+// RENDER KONTAKT
+document.getElementById('contact-text').textContent = DATA.kontakt.text;
+const emailBtn = document.getElementById('contact-email-btn');
+emailBtn.textContent = DATA.kontakt.emailLabel;
+emailBtn.href = 'mailto:' + DATA.kontakt.email;
 
-  })
-  .catch(err => console.error('Chyba při načítání content.json:', err));
+const contactLinks = document.getElementById('contact-links');
+contactLinks.innerHTML = `
+  <a href="mailto:${DATA.kontakt.email}" class="contact-link">
+    <div class="contact-icon">
+      <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    </div>
+    <span>${DATA.kontakt.email}</span>
+  </a>
+  <a href="${DATA.kontakt.linkedin}" target="_blank" class="contact-link">
+    <div class="contact-icon">
+      <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+    </div>
+    <span>LinkedIn</span>
+  </a>
+`;
+
+// FOOTER
+document.getElementById('footer-copy').textContent =
+  '© ' + new Date().getFullYear() + ' Ondřej Hanák. Všechna práva vyhrazena.';
+
+// NAV scroll effect
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// REVEAL on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
