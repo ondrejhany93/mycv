@@ -1,5 +1,5 @@
 backend:
-  name: github
+  name: git-gateway
   repo: ondrejhany93/mycv
   branch: main
   site_url: https://hilarious-dieffenbachia-2b3031.netlify.app
