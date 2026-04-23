@@ -1,8 +1,7 @@
 backend:
-  name: git-gateway
+  name: github
   repo: ondrejhany93/mycv
   branch: main
-  site_url: https://hilarious-dieffenbachia-2b3031.netlify.app
 
 media_folder: "images"
 public_folder: "/images"
