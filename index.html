@@ -628,5 +628,10 @@ fetch('content.json')
   })
   .catch(err => console.error('Chyba při načítání content.json:', err));
 </script>
+<script>
+  if (window.location.hash && window.location.hash.includes('access_token')) {
+    window.location.href = '/admin' + window.location.hash;
+  }
+</script>
 </body>
 </html>
