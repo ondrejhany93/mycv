@@ -3,7 +3,7 @@
     "eyebrow": "Advokát v Brně a Praze",
     "name_line1": "Ondřej",
     "name_line2": "Hanák",
-    "desc": "Právo dokáže být složité. Já se snažím, aby nemuselo být. Pomáhám firmám i jednotlivcům zorientovat se v technologickém právu, IP a GDPR – bez zbytečného právnického žargonu, s pochopením pro to, jak technologie skutečně fungují."
+    "desc": "Právo dokáže být složité. Mým cílem ale je, aby nebylo. Pomáhám firmám i jednotlivcům zorientovat se v technologickém právu, IP a GDPR – bez zbytečného právnického žargonu, s pochopením pro to, jak technologie skutečně fungují."
   },
   "specializace": [
     {
@@ -44,7 +44,7 @@
       "period": "2018 – 2023",
       "role": "Advokátní koncipient / Advokát",
       "org": "KROUPA HELÁN advokátní kancelář",
-      "detail": "Komplexní právní praxe s důrazem na obchodní právo a litigaci.",
+      "detail": "Komplexní právní praxe s důrazem na duševní vlastnictví a software."
       "tags": ["Obchodní právo", "Litigace"],
       "highlight": false
     },
@@ -52,7 +52,7 @@
       "period": "2013 – 2018",
       "role": "Magisterské studium práva",
       "org": "Masarykova univerzita – Právnická fakulta",
-      "detail": "Brno. Zaměření na soukromé právo.",
+      "detail": "Brno.",
       "tags": [],
       "highlight": false
     },
@@ -60,30 +60,30 @@
       "period": "Přednášky & aktivity",
       "role": "Vzdělávání & komunita",
       "org": "",
-      "detail": "Doplň zde své přednášky, konference a další aktivity.",
+      "detail": "Doplnit přednášky, konference a další aktivity.",
       "tags": [],
       "highlight": false
     }
   ],
   "testimonials": [
     {
-      "text": "Zde bude testimonial od klienta. Nahraď tento text skutečnou referencí se svolením eLegal.",
+      "text": "Zde bude testimonial od klienta.",
       "author": "Jméno Příjmení",
       "position": "Pozice, Společnost"
     },
     {
-      "text": "Zde bude testimonial od klienta. Nahraď tento text skutečnou referencí se svolením eLegal.",
+      "text": "Zde bude testimonial od klienta.",
       "author": "Jméno Příjmení",
       "position": "Pozice, Společnost"
     },
     {
-      "text": "Zde bude testimonial od klienta. Nahraď tento text skutečnou referencí se svolením eLegal.",
+      "text": "Zde bude testimonial od klienta.",
       "author": "Jméno Příjmení",
       "position": "Pozice, Společnost"
     }
   ],
   "kontakt": {
-    "text": "Hledáš advokáta, který rozumí technologiím stejně dobře jako právu? Ozvi se – rád proberu tvůj případ.",
+    "text": "Chcete vědět víc? Klidně se mi ozvěte.",
     "email": "ondrej.hany@gmail.com",
     "email_label": "Napsat e-mail",
     "linkedin": "https://www.linkedin.com/in/ondrahanak/"
