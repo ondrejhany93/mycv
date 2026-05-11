@@ -748,22 +748,18 @@ function startTyping(name2, desc) {
   const descEl = document.getElementById('hero-desc');
   const line1 = nameEl.dataset.line1;
   nameEl.innerHTML = line1 + '<br><em id="type-target"></em><span class="typing-cursor"></span>';
-  descEl.textContent = '';
+  descEl.textContent = desc;
+  descEl.style.opacity = '0';
+  descEl.style.transition = 'opacity 0.8s';
   const typeTarget = document.getElementById('type-target');
-  let ni = 0, di = 0;
+  let ni = 0;
   function typeName() {
     if (ni < name2.length) {
       typeTarget.textContent += name2[ni++];
       setTimeout(typeName, 70 + Math.random() * 50);
     } else {
       nameEl.querySelector('.typing-cursor').style.display = 'none';
-      setTimeout(typeDesc, 200);
-    }
-  }
-  function typeDesc() {
-    if (di < desc.length) {
-      descEl.textContent += desc[di++];
-      setTimeout(typeDesc, 18 + Math.random() * 12);
+      setTimeout(() => { descEl.style.opacity = '1'; }, 300);
     }
   }
   setTimeout(typeName, 800);
