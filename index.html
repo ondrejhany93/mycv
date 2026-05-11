@@ -181,29 +181,28 @@
   .hero-right {
     position: relative;
     z-index: 2;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
     overflow: hidden;
-  }
-  .hero-right::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 3;
-    background: linear-gradient(to right, var(--forest) 0%, transparent 30%),
-                linear-gradient(to bottom, var(--forest) 0%, transparent 15%),
-                linear-gradient(to left, var(--forest) 0%, transparent 15%);
   }
   .hero-visual {
     position: absolute;
     inset: 0;
     opacity: 0;
     animation: fadeIn 1.2s 1s forwards;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
   }
   .hero-visual img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top center;
+    height: 95%;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: bottom center;
     display: block;
+    filter: drop-shadow(-8px 0 20px rgba(26,46,30,0.6));
   }
 
   /* ---- SECTIONS ---- */
@@ -455,7 +454,7 @@
   </div>
   <div class="hero-right">
     <div class="hero-visual">
-      <img src="Ondra_Hanak_1.jpg" alt="Ondřej Hanák" />
+      <img src="MyPhoto.png" alt="Ondřej Hanák" />
     </div>
   </div>
 </section>
