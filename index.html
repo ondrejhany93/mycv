@@ -104,7 +104,41 @@
   .nav-links a.active { border-bottom-color: var(--accent); }
   nav.scrolled .nav-links a.active { color: var(--forest); }
 
-  /* ---- HERO ---- */
+  /* ---- CURSOR TRAIL ---- */
+  .hero { cursor: none; }
+  #cursor-dot {
+    position: fixed;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .cursor-trail-dot {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    background: rgba(200,169,110,0.2);
+    z-index: 998;
+  }
+
+  /* ---- TYPING CURSOR ---- */
+  .typing-cursor {
+    display: inline-block;
+    width: 3px;
+    height: 0.85em;
+    background: var(--accent-light);
+    vertical-align: middle;
+    margin-left: 2px;
+    animation: blink 0.7s step-end infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  /* ---- PARALLAX ---- */
   .hero {
     min-height: 100vh;
     background: var(--forest);
@@ -193,14 +227,15 @@
     animation: fadeIn 1.2s 1s forwards;
     display: flex;
     align-items: flex-end;
-    justify-content: center;
+    justify-content: flex-start;
+    padding-left: 2rem;
   }
   .hero-visual img {
-    height: 95%;
+    height: 100%;
     width: auto;
-    max-width: 100%;
+    max-width: 130%;
     object-fit: contain;
-    object-position: bottom center;
+    object-position: bottom left;
     display: block;
     filter: drop-shadow(-8px 0 20px rgba(26,46,30,0.6));
   }
@@ -433,9 +468,13 @@
   <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
 
+<div id="cursor-dot"></div>
+
 <nav id="nav">
   <ul class="nav-links">
     <li><a href="#specializace" data-section="specializace">Specializace</a></li>
+    <li><a href="#zajima-me" data-section="zajima-me">Směřování</a></li>
+    <li><a href="#prednasky" data-section="prednasky">Přednášky</a></li>
     <li><a href="#zkusenosti" data-section="zkusenosti">Zkušenosti</a></li>
     <li><a href="#testimonials" data-section="testimonials">Reference</a></li>
     <li><a href="#kontakt" data-section="kontakt">Kontakt</a></li>
@@ -563,8 +602,11 @@ fetch('./content.json')
 
     // HERO
     document.getElementById('hero-eyebrow').textContent = DATA.hero.eyebrow;
-    document.getElementById('hero-name').innerHTML = DATA.hero.name_line1 + '<br><em>' + DATA.hero.name_line2 + '</em>';
+    const nameEl = document.getElementById('hero-name');
+    nameEl.dataset.line1 = DATA.hero.name_line1;
+    nameEl.innerHTML = DATA.hero.name_line1 + '<br><em>' + DATA.hero.name_line2 + '</em>';
     document.getElementById('hero-desc').textContent = DATA.hero.desc;
+    startTyping(DATA.hero.name_line2, DATA.hero.desc);
 
     // SPECIALIZACE
     const specGrid = document.getElementById('spec-grid');
@@ -646,7 +688,7 @@ fetch('./content.json')
   })
   .catch(err => console.error('Chyba:', err));
 
-// PROGRESS BAR
+// PROGRESS BAR + SCROLL
 const progressBar = document.getElementById('progress-bar');
 const backTop = document.getElementById('back-top');
 window.addEventListener('scroll', () => {
@@ -655,6 +697,10 @@ window.addEventListener('scroll', () => {
   progressBar.style.width = (scrollTop / docHeight * 100) + '%';
   document.getElementById('nav').classList.toggle('scrolled', scrollTop > 50);
   backTop.classList.toggle('visible', scrollTop > 400);
+
+  // PARALLAX
+  const heroRight = document.querySelector('.hero-visual img');
+  if (heroRight) heroRight.style.transform = `translateY(${scrollTop * 0.12}px)`;
 
   // ACTIVE NAV
   const sections = ['specializace','zajima-me','prednasky','zkusenosti','testimonials','zajmy','kontakt'];
@@ -667,6 +713,62 @@ window.addEventListener('scroll', () => {
     a.classList.toggle('active', a.dataset.section === current);
   });
 });
+
+// CURSOR TRAIL
+const cursorDot = document.getElementById('cursor-dot');
+const trailDots = [];
+const TRAIL_COUNT = 8;
+for (let i = 0; i < TRAIL_COUNT; i++) {
+  const d = document.createElement('div');
+  d.className = 'cursor-trail-dot';
+  const size = 6 + i * 3;
+  d.style.cssText = `width:${size}px;height:${size}px;opacity:0;transition:opacity ${0.1+i*0.05}s;`;
+  document.body.appendChild(d);
+  trailDots.push({ el: d, x: 0, y: 0 });
+}
+let mx = 0, my = 0, heroActive = false;
+const heroSection = document.querySelector('.hero');
+heroSection.addEventListener('mouseenter', () => { heroActive = true; cursorDot.style.opacity = 1; });
+heroSection.addEventListener('mouseleave', () => { heroActive = false; cursorDot.style.opacity = 0; trailDots.forEach(t => t.el.style.opacity = 0); });
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursorDot.style.left = mx+'px'; cursorDot.style.top = my+'px'; });
+(function animateTrail() {
+  trailDots.forEach((t, i) => {
+    t.x += (mx - t.x) * (0.15 + i * 0.02);
+    t.y += (my - t.y) * (0.15 + i * 0.02);
+    t.el.style.left = t.x + 'px';
+    t.el.style.top = t.y + 'px';
+    t.el.style.opacity = heroActive ? (0.4 - i * 0.04) : 0;
+  });
+  requestAnimationFrame(animateTrail);
+})();
+
+// TYPING EFFECT – spustí se po načtení DATA
+function startTyping(name2, desc) {
+  const nameEl = document.getElementById('hero-name');
+  const descEl = document.getElementById('hero-desc');
+  const line1 = nameEl.dataset.line1;
+  nameEl.innerHTML = line1 + '<br><em id="type-target"></em><span class="typing-cursor"></span>';
+  descEl.textContent = '';
+  const typeTarget = document.getElementById('type-target');
+  let ni = 0, di = 0;
+  function typeName() {
+    if (ni < name2.length) {
+      typeTarget.textContent += name2[ni++];
+      setTimeout(typeName, 70 + Math.random() * 50);
+    } else {
+      nameEl.querySelector('.typing-cursor').style.display = 'none';
+      setTimeout(typeDesc, 200);
+    }
+  }
+  function typeDesc() {
+    if (di < desc.length) {
+      descEl.textContent += desc[di++];
+      setTimeout(typeDesc, 18 + Math.random() * 12);
+    }
+  }
+  setTimeout(typeName, 800);
+}
+
 </script>
 </body>
 </html>
