@@ -31,6 +31,26 @@
       "desc": "IP ochrana her, licencování, in-game ekonomiky, esport a streamingová práva."
     }
   ],
+  "prednasky": [
+    {
+      "nazev": "Název akce",
+      "datum": "Datum",
+      "misto": "Místo",
+      "foto": ""
+    },
+    {
+      "nazev": "Název akce",
+      "datum": "Datum",
+      "misto": "Místo",
+      "foto": ""
+    },
+    {
+      "nazev": "Název akce",
+      "datum": "Datum",
+      "misto": "Místo",
+      "foto": ""
+    }
+  ],
   "timeline": [
     {
       "period": "2023 – 2026",
@@ -72,6 +92,23 @@
       "text": "Zde bude testimonial od klienta.",
       "author": "Jméno Příjmení",
       "position": "Pozice, Společnost"
+    }
+  ],
+  "zajmy": [
+    {
+      "nazev": "Sport",
+      "popis": "Kolo & triatlon",
+      "ikona": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><circle cx=\"5.5\" cy=\"17.5\" r=\"3.5\"/><circle cx=\"18.5\" cy=\"17.5\" r=\"3.5\"/><path d=\"M15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-3 11.5L9 10l4-1 2 3h4\"/><path d=\"M5.5 17.5L9 10\"/></svg>"
+    },
+    {
+      "nazev": "Četba",
+      "popis": "Hlavně non-fiction",
+      "ikona": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M4 19.5A2.5 2.5 0 0 1 6.5 17H20\"/><path d=\"M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z\"/></svg>"
+    },
+    {
+      "nazev": "Cestování",
+      "popis": "Rád objevuji nová místa",
+      "ikona": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M17.8 19.2L16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z\"/></svg>"
     }
   ],
   "kontakt": {

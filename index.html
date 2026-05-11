@@ -34,6 +34,38 @@
     overflow-x: hidden;
   }
 
+  /* ---- PROGRESS BAR ---- */
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    width: 0%;
+    background: var(--accent);
+    z-index: 200;
+    transition: width 0.1s linear;
+  }
+
+  /* ---- BACK TO TOP ---- */
+  #back-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 44px; height: 44px;
+    background: var(--forest);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s, transform 0.3s, background 0.2s;
+    z-index: 99;
+  }
+  #back-top.visible { opacity: 1; transform: translateY(0); }
+  #back-top:hover { background: var(--forest-light); }
+  #back-top svg { width: 18px; height: 18px; stroke: var(--cream); fill: none; stroke-width: 2; }
+
   /* ---- NAV ---- */
   nav {
     position: fixed;
@@ -41,7 +73,7 @@
     z-index: 100;
     padding: 1.25rem 3rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     transition: background 0.3s, backdrop-filter 0.3s;
   }
@@ -49,15 +81,6 @@
     background: rgba(245, 240, 232, 0.92);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(26,46,30,0.08);
-  }
-  .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.1rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    color: var(--cream);
-    text-decoration: none;
-    transition: color 0.3s;
   }
   .nav-links {
     display: flex;
@@ -71,10 +94,15 @@
     color: rgba(245,240,232,0.7);
     text-decoration: none;
     transition: color 0.2s;
+    padding-bottom: 3px;
+    border-bottom: 1.5px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
   }
   nav.scrolled .nav-links a { color: var(--text-mid); }
   .nav-links a:hover { color: var(--cream); }
   nav.scrolled .nav-links a:hover { color: var(--forest); }
+  .nav-links a.active { border-bottom-color: var(--accent); }
+  nav.scrolled .nav-links a.active { color: var(--forest); }
 
   /* ---- HERO ---- */
   .hero {
@@ -119,10 +147,7 @@
     opacity: 0;
     animation: fadeUp 0.8s 0.5s forwards;
   }
-  .hero-name em {
-    font-style: italic;
-    color: var(--accent-light);
-  }
+  .hero-name em { font-style: italic; color: var(--accent-light); }
   .hero-desc {
     font-size: 1.05rem;
     line-height: 1.75;
@@ -151,7 +176,7 @@
     cursor: pointer;
     transition: background 0.2s, transform 0.2s;
   }
-  .btn-primary:hover { background: var(--accent-light); transform: translateY(-1px); }
+  .btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); }
 
   .hero-right {
     position: relative;
@@ -183,12 +208,7 @@
 
   /* ---- SECTIONS ---- */
   section { padding: 6rem 0; }
-
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 3rem;
-  }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 3rem; }
 
   .section-label {
     font-size: 0.72rem;
@@ -197,7 +217,6 @@
     color: var(--sage);
     margin-bottom: 0.75rem;
   }
-
   .section-title {
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(2rem, 3.5vw, 3rem);
@@ -209,7 +228,6 @@
 
   /* ---- SPECIALIZACE ---- */
   #specializace { background: var(--cream-dark); }
-
   .spec-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -220,10 +238,10 @@
   .spec-item {
     background: var(--cream-dark);
     padding: 2.5rem 2rem;
-    transition: background 0.3s;
+    transition: background 0.3s, transform 0.25s;
     cursor: default;
   }
-  .spec-item:hover { background: var(--cream); }
+  .spec-item:hover { background: var(--cream); transform: translateY(-3px); }
   .spec-number {
     font-family: 'Cormorant Garamond', serif;
     font-size: 2.5rem;
@@ -232,29 +250,14 @@
     line-height: 1;
     margin-bottom: 1rem;
   }
-  .spec-title {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--forest);
-    margin-bottom: 0.75rem;
-  }
-  .spec-desc {
-    font-size: 0.85rem;
-    line-height: 1.65;
-    color: var(--text-light);
-    font-weight: 300;
-  }
+  .spec-title { font-size: 0.95rem; font-weight: 500; color: var(--forest); margin-bottom: 0.75rem; }
+  .spec-desc { font-size: 0.85rem; line-height: 1.65; color: var(--text-light); font-weight: 300; }
 
   /* ---- CO BY MĚ ZAJÍMALO ---- */
   #zajima-me { background: var(--forest); }
   #zajima-me .section-label { color: var(--sage); }
   #zajima-me .section-title { color: var(--cream); }
-
-  .zajima-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-  }
+  .zajima-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
   .zajima-item {
     border: 1px solid rgba(122,158,130,0.2);
     padding: 2.5rem 2rem;
@@ -262,13 +265,10 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 1.25rem;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, transform 0.25s;
   }
-  .zajima-item:hover { border-color: rgba(200,169,110,0.4); }
-  .zajima-icon {
-    width: 48px; height: 48px;
-    color: var(--accent);
-  }
+  .zajima-item:hover { border-color: rgba(200,169,110,0.4); transform: translateY(-3px); }
+  .zajima-icon { width: 48px; height: 48px; color: var(--accent); }
   .zajima-icon svg { width: 100%; height: 100%; }
   .zajima-title {
     font-family: 'Cormorant Garamond', serif;
@@ -278,13 +278,39 @@
     line-height: 1.3;
   }
 
-  /* ---- ČASOVÁ OSA ---- */
-  #zkusenosti { background: var(--cream); }
-
-  .timeline {
-    position: relative;
-    padding-left: 2rem;
+  /* ---- PŘEDNÁŠKY ---- */
+  #prednasky { background: var(--cream); }
+  .prednasky-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .prednasky-card {
+    border: 1px solid rgba(26,46,30,0.12);
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.25s;
+    cursor: default;
   }
+  .prednasky-card:hover { border-color: rgba(200,169,110,0.5); transform: translateY(-4px); }
+  .prednasky-img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    background: var(--cream-dark);
+  }
+  .prednasky-img-placeholder {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: var(--cream-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .prednasky-img-placeholder svg { width: 40px; height: 40px; stroke: rgba(26,46,30,0.2); fill: none; }
+  .prednasky-caption { padding: 1.25rem; }
+  .prednasky-name { font-size: 0.95rem; font-weight: 500; color: var(--forest); margin-bottom: 0.3rem; }
+  .prednasky-meta { font-size: 0.82rem; color: var(--text-light); }
+
+  /* ---- ČASOVÁ OSA ---- */
+  #zkusenosti { background: var(--cream-dark); }
+  .timeline { position: relative; padding-left: 2rem; }
   .timeline::before {
     content: '';
     position: absolute;
@@ -292,190 +318,94 @@
     width: 1px;
     background: linear-gradient(to bottom, var(--forest-light), transparent);
   }
-  .timeline-item {
-    position: relative;
-    padding-bottom: 3.5rem;
-    padding-left: 2rem;
-  }
+  .timeline-item { position: relative; padding-bottom: 3.5rem; padding-left: 2rem; }
   .timeline-item::before {
     content: '';
     position: absolute;
-    left: -2.4rem;
-    top: 8px;
+    left: -2.4rem; top: 8px;
     width: 8px; height: 8px;
     border-radius: 50%;
     background: var(--forest-light);
-    border: 2px solid var(--cream);
+    border: 2px solid var(--cream-dark);
     box-shadow: 0 0 0 1px var(--forest-light);
   }
-  .timeline-item.highlight::before {
-    background: var(--accent);
-    box-shadow: 0 0 0 1px var(--accent);
-  }
-  .timeline-period {
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--text-light);
-    margin-bottom: 0.4rem;
-  }
-  .timeline-role {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
-    font-weight: 400;
-    color: var(--forest);
-    margin-bottom: 0.25rem;
-  }
-  .timeline-org {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--sage);
-    margin-bottom: 0.75rem;
-  }
-  .timeline-detail {
-    font-size: 0.88rem;
-    line-height: 1.7;
-    color: var(--text-mid);
-    font-weight: 300;
-    max-width: 560px;
-  }
-  .timeline-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.75rem;
-  }
-  .tag {
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    padding: 0.3rem 0.75rem;
-    border: 1px solid rgba(26,46,30,0.2);
-    color: var(--text-mid);
-  }
+  .timeline-item.highlight::before { background: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+  .timeline-period { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.4rem; }
+  .timeline-role { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--forest); margin-bottom: 0.25rem; }
+  .timeline-org { font-size: 0.9rem; font-weight: 500; color: var(--sage); margin-bottom: 0.75rem; }
+  .timeline-detail { font-size: 0.88rem; line-height: 1.7; color: var(--text-mid); font-weight: 300; max-width: 560px; }
+  .timeline-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+  .tag { font-size: 0.72rem; letter-spacing: 0.08em; padding: 0.3rem 0.75rem; border: 1px solid rgba(26,46,30,0.2); color: var(--text-mid); }
 
   /* ---- TESTIMONIALS ---- */
   #testimonials { background: var(--forest); }
   #testimonials .section-label { color: var(--sage); }
   #testimonials .section-title { color: var(--cream); }
-
-  .testimonial-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-  }
+  .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
   .testimonial-card {
     border: 1px solid rgba(122,158,130,0.2);
     padding: 2.5rem;
-    position: relative;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, transform 0.25s;
   }
-  .testimonial-card:hover { border-color: rgba(200,169,110,0.3); }
-  .testimonial-quote {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 3rem;
-    font-weight: 300;
-    color: var(--accent);
-    line-height: 1;
-    margin-bottom: 1rem;
-    opacity: 0.5;
+  .testimonial-card:hover { border-color: rgba(200,169,110,0.3); transform: translateY(-3px); }
+  .testimonial-quote { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: var(--accent); line-height: 1; margin-bottom: 1rem; opacity: 0.5; }
+  .testimonial-text { font-size: 0.95rem; line-height: 1.8; color: var(--sage-light); font-weight: 300; font-style: italic; margin-bottom: 1.5rem; }
+  .testimonial-author { font-size: 0.82rem; font-weight: 500; color: var(--cream); letter-spacing: 0.05em; }
+  .testimonial-position { font-size: 0.78rem; color: var(--sage); margin-top: 0.2rem; }
+
+  /* ---- ZÁJMY ---- */
+  #zajmy { background: var(--cream-dark); }
+  .zajmy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .zajmy-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.75rem;
+    border: 1px solid rgba(26,46,30,0.1);
+    background: var(--cream);
+    transition: border-color 0.3s, transform 0.25s;
   }
-  .testimonial-text {
-    font-size: 0.95rem;
-    line-height: 1.8;
-    color: var(--sage-light);
-    font-weight: 300;
-    font-style: italic;
-    margin-bottom: 1.5rem;
-  }
-  .testimonial-author {
-    font-size: 0.82rem;
-    font-weight: 500;
-    color: var(--cream);
-    letter-spacing: 0.05em;
-  }
-  .testimonial-position {
-    font-size: 0.78rem;
-    color: var(--sage);
-    margin-top: 0.2rem;
-  }
+  .zajmy-item:hover { border-color: rgba(200,169,110,0.4); transform: translateY(-3px); }
+  .zajmy-icon { width: 36px; height: 36px; flex-shrink: 0; color: var(--forest-light); margin-top: 2px; }
+  .zajmy-icon svg { width: 100%; height: 100%; }
+  .zajmy-label { font-size: 0.95rem; font-weight: 500; color: var(--forest); margin-bottom: 0.3rem; }
+  .zajmy-sub { font-size: 0.82rem; color: var(--text-light); line-height: 1.5; }
 
   /* ---- KONTAKT ---- */
-  #kontakt { background: var(--cream-dark); }
-
-  .contact-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: start;
-  }
-  .contact-text {
-    font-size: 1rem;
-    line-height: 1.8;
-    color: var(--text-mid);
-    font-weight: 300;
-    margin-bottom: 2.5rem;
-  }
-  .contact-links {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
+  #kontakt { background: var(--forest); }
+  #kontakt .section-title { color: var(--cream); }
+  #kontakt .section-label { color: var(--sage); }
+  .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+  .contact-text { font-size: 1rem; line-height: 1.8; color: var(--sage-light); font-weight: 300; margin-bottom: 2.5rem; }
+  .contact-links { display: flex; flex-direction: column; gap: 0; }
   .contact-link {
     display: flex;
     align-items: center;
     gap: 1rem;
     text-decoration: none;
-    color: var(--text-mid);
+    color: var(--sage-light);
     font-size: 0.9rem;
     transition: color 0.2s;
     padding: 1rem 0;
-    border-bottom: 1px solid rgba(26,46,30,0.1);
+    border-bottom: 1px solid rgba(122,158,130,0.15);
   }
-  .contact-link:hover { color: var(--forest); }
-  .contact-icon {
-    width: 36px; height: 36px;
-    background: var(--forest);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-  .contact-icon svg { width: 16px; height: 16px; fill: var(--cream); }
+  .contact-link:hover { color: var(--cream); }
+  .contact-icon { width: 36px; height: 36px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .contact-icon svg { width: 16px; height: 16px; fill: var(--sage-light); }
 
   /* ---- FOOTER ---- */
-  footer {
-    background: var(--forest);
-    padding: 2rem 3rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .footer-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.9rem;
-    color: var(--sage);
-  }
-  .footer-copy {
-    font-size: 0.75rem;
-    color: rgba(122,158,130,0.5);
-  }
+  footer { background: var(--forest); border-top: 1px solid rgba(122,158,130,0.1); padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; }
+  .footer-name { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; color: var(--sage); }
+  .footer-copy { font-size: 0.75rem; color: rgba(122,158,130,0.5); }
 
   /* ---- ANIMATIONS ---- */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  .reveal {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.7s, transform 0.7s;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s, transform 0.7s; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
 
   /* ---- RESPONSIVE ---- */
   @media (max-width: 768px) {
@@ -487,20 +417,29 @@
     .container { padding: 0 1.5rem; }
     section { padding: 4rem 0; }
     .spec-grid { grid-template-columns: 1fr; }
+    .zajima-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .prednasky-grid { grid-template-columns: 1fr; }
+    .zajmy-grid { grid-template-columns: 1fr; }
     .contact-layout { grid-template-columns: 1fr; gap: 2rem; }
     footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    #back-top { bottom: 1rem; right: 1rem; }
   }
 </style>
 </head>
 <body>
 
+<div id="progress-bar"></div>
+
+<button id="back-top" aria-label="Zpět nahoru" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
 <nav id="nav">
-  <span></span>
   <ul class="nav-links">
-    <li><a href="#specializace">Specializace</a></li>
-    <li><a href="#zkusenosti">Zkušenosti</a></li>
-    <li><a href="#testimonials">Reference</a></li>
-    <li><a href="#kontakt">Kontakt</a></li>
+    <li><a href="#specializace" data-section="specializace">Specializace</a></li>
+    <li><a href="#zkusenosti" data-section="zkusenosti">Zkušenosti</a></li>
+    <li><a href="#testimonials" data-section="testimonials">Reference</a></li>
+    <li><a href="#kontakt" data-section="kontakt">Kontakt</a></li>
   </ul>
 </nav>
 
@@ -511,7 +450,7 @@
     <h1 class="hero-name" id="hero-name"></h1>
     <p class="hero-desc" id="hero-desc"></p>
     <div class="hero-cta">
-      <a href="#kontakt" class="btn-primary">Napsat mi</a>
+      <a href="#kontakt" class="btn-primary">Napište mi</a>
     </div>
   </div>
   <div class="hero-right">
@@ -534,7 +473,6 @@
     <p class="section-label reveal">Kam směřuji</p>
     <h2 class="section-title reveal">Co by mě zajímalo</h2>
     <div class="zajima-grid">
-
       <div class="zajima-item reveal">
         <div class="zajima-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -546,8 +484,7 @@
         </div>
         <div class="zajima-title">Komplexnější soudní spory</div>
       </div>
-
-      <div class="zajima-item reveal">
+      <div class="zajima-item reveal reveal-delay-1">
         <div class="zajima-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <rect x="2" y="3" width="20" height="14" rx="2"/>
@@ -557,8 +494,7 @@
         </div>
         <div class="zajima-title">Kybernetická bezpečnost</div>
       </div>
-
-      <div class="zajima-item reveal">
+      <div class="zajima-item reveal reveal-delay-2">
         <div class="zajima-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
@@ -566,8 +502,15 @@
         </div>
         <div class="zajima-title">Autorské spory a ochrana osobnosti</div>
       </div>
-
     </div>
+  </div>
+</section>
+
+<section id="prednasky">
+  <div class="container">
+    <p class="section-label reveal">Sdílím znalosti</p>
+    <h2 class="section-title reveal">Rád přednáším</h2>
+    <div class="prednasky-grid" id="prednasky-grid"></div>
   </div>
 </section>
 
@@ -584,6 +527,14 @@
     <p class="section-label reveal">Co říkají klienti</p>
     <h2 class="section-title reveal">Reference</h2>
     <div class="testimonial-grid" id="testimonial-grid"></div>
+  </div>
+</section>
+
+<section id="zajmy">
+  <div class="container">
+    <p class="section-label reveal">Mimo práci</p>
+    <h2 class="section-title reveal">Zájmy</h2>
+    <div class="zajmy-grid" id="zajmy-grid"></div>
   </div>
 </section>
 
@@ -613,8 +564,7 @@ fetch('./content.json')
 
     // HERO
     document.getElementById('hero-eyebrow').textContent = DATA.hero.eyebrow;
-    document.getElementById('hero-name').innerHTML =
-      DATA.hero.name_line1 + '<br><em>' + DATA.hero.name_line2 + '</em>';
+    document.getElementById('hero-name').innerHTML = DATA.hero.name_line1 + '<br><em>' + DATA.hero.name_line2 + '</em>';
     document.getElementById('hero-desc').textContent = DATA.hero.desc;
 
     // SPECIALIZACE
@@ -622,41 +572,52 @@ fetch('./content.json')
     DATA.specializace.forEach((s, i) => {
       const el = document.createElement('div');
       el.className = 'spec-item reveal';
-      el.innerHTML = `
-        <div class="spec-number">0${i+1}</div>
-        <div class="spec-title">${s.title}</div>
-        <div class="spec-desc">${s.desc}</div>`;
+      el.innerHTML = `<div class="spec-number">0${i+1}</div><div class="spec-title">${s.title}</div><div class="spec-desc">${s.desc}</div>`;
       specGrid.appendChild(el);
+    });
+
+    // PŘEDNÁŠKY
+    const predGrid = document.getElementById('prednasky-grid');
+    DATA.prednasky.forEach((p, i) => {
+      const el = document.createElement('div');
+      el.className = 'prednasky-card reveal';
+      if (i > 0) el.classList.add('reveal-delay-' + i);
+      const imgHtml = p.foto
+        ? `<img class="prednasky-img" src="${p.foto}" alt="${p.nazev}" />`
+        : `<div class="prednasky-img-placeholder"><svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`;
+      el.innerHTML = `${imgHtml}<div class="prednasky-caption"><div class="prednasky-name">${p.nazev}</div><div class="prednasky-meta">${p.datum}${p.misto ? ' · ' + p.misto : ''}</div></div>`;
+      predGrid.appendChild(el);
     });
 
     // TIMELINE
     const timeline = document.getElementById('timeline');
     DATA.timeline.forEach(t => {
       const tagsHtml = t.tags && t.tags.length
-        ? `<div class="timeline-tags">${t.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>`
-        : '';
+        ? `<div class="timeline-tags">${t.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>` : '';
       const el = document.createElement('div');
       el.className = `timeline-item ${t.highlight ? 'highlight' : ''} reveal`;
-      el.innerHTML = `
-        <div class="timeline-period">${t.period}</div>
-        <div class="timeline-role">${t.role}</div>
-        ${t.org ? `<div class="timeline-org">${t.org}</div>` : ''}
-        <div class="timeline-detail">${t.detail}</div>
-        ${tagsHtml}`;
+      el.innerHTML = `<div class="timeline-period">${t.period}</div><div class="timeline-role">${t.role}</div>${t.org ? `<div class="timeline-org">${t.org}</div>` : ''}<div class="timeline-detail">${t.detail}</div>${tagsHtml}`;
       timeline.appendChild(el);
     });
 
     // TESTIMONIALS
     const tGrid = document.getElementById('testimonial-grid');
-    DATA.testimonials.forEach(t => {
+    DATA.testimonials.forEach((t, i) => {
       const el = document.createElement('div');
       el.className = 'testimonial-card reveal';
-      el.innerHTML = `
-        <div class="testimonial-quote">"</div>
-        <p class="testimonial-text">${t.text}</p>
-        <div class="testimonial-author">${t.author}</div>
-        <div class="testimonial-position">${t.position}</div>`;
+      if (i > 0) el.classList.add('reveal-delay-' + i);
+      el.innerHTML = `<div class="testimonial-quote">"</div><p class="testimonial-text">${t.text}</p><div class="testimonial-author">${t.author}</div><div class="testimonial-position">${t.position}</div>`;
       tGrid.appendChild(el);
+    });
+
+    // ZÁJMY
+    const zajmyGrid = document.getElementById('zajmy-grid');
+    DATA.zajmy.forEach((z, i) => {
+      const el = document.createElement('div');
+      el.className = 'zajmy-item reveal';
+      if (i > 0) el.classList.add('reveal-delay-' + i);
+      el.innerHTML = `<div class="zajmy-icon">${z.ikona}</div><div><div class="zajmy-label">${z.nazev}</div><div class="zajmy-sub">${z.popis}</div></div>`;
+      zajmyGrid.appendChild(el);
     });
 
     // KONTAKT
@@ -664,38 +625,49 @@ fetch('./content.json')
     const emailBtn = document.getElementById('contact-email-btn');
     emailBtn.textContent = DATA.kontakt.email_label;
     emailBtn.href = 'mailto:' + DATA.kontakt.email;
-
     document.getElementById('contact-links').innerHTML = `
       <a href="mailto:${DATA.kontakt.email}" class="contact-link">
-        <div class="contact-icon">
-          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        </div>
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
         <span>${DATA.kontakt.email}</span>
       </a>
       <a href="${DATA.kontakt.linkedin}" target="_blank" class="contact-link">
-        <div class="contact-icon">
-          <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-        </div>
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></div>
         <span>LinkedIn</span>
       </a>`;
 
     // FOOTER
-    document.getElementById('footer-copy').textContent =
-      '© ' + new Date().getFullYear() + ' Ondřej Hanák. Všechna práva vyhrazena.';
+    document.getElementById('footer-copy').textContent = '© ' + new Date().getFullYear() + ' Ondřej Hanák. Všechna práva vyhrazena.';
 
-    // NAV scroll
-    window.addEventListener('scroll', () => {
-      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
-    });
-
-    // REVEAL
+    // REVEAL observer
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.08 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
   })
-  .catch(err => console.error('Chyba při načítání content.json:', err));
+  .catch(err => console.error('Chyba:', err));
+
+// PROGRESS BAR
+const progressBar = document.getElementById('progress-bar');
+const backTop = document.getElementById('back-top');
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+  document.getElementById('nav').classList.toggle('scrolled', scrollTop > 50);
+  backTop.classList.toggle('visible', scrollTop > 400);
+
+  // ACTIVE NAV
+  const sections = ['specializace','zajima-me','prednasky','zkusenosti','testimonials','zajmy','kontakt'];
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top < window.innerHeight * 0.4) current = id;
+  });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.toggle('active', a.dataset.section === current);
+  });
+});
 </script>
 </body>
 </html>
