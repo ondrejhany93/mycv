@@ -54,7 +54,13 @@
       "role": "Advokát",
       "org": "eLegal",
       "detail": "Poradenství v oblasti technologického práva, IP, GDPR a e-commerce. Klienti ze segmentu SaaS, e-shopů a technologií obecně.",
-      "tags": ["Tech právo", "IP", "GDPR", "AI Act", "E-commerce"],
+      "tags": [
+        "Tech právo",
+        "IP",
+        "GDPR",
+        "AI Act",
+        "E-commerce"
+      ],
       "highlight": true
     },
     {
@@ -62,7 +68,10 @@
       "role": "Advokátní koncipient / Advokát",
       "org": "KROUPAHELÁN advokátní kancelář",
       "detail": "Komplexní právní praxe s důrazem na duševní vlastnictví a software.",
-      "tags": ["Obchodní právo", "Litigace"],
+      "tags": [
+        "Obchodní právo",
+        "Litigace"
+      ],
       "highlight": false
     },
     {
