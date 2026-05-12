@@ -312,6 +312,42 @@
     line-height: 1.3;
   }
 
+  /* ---- LIGHTBOX ---- */
+  #lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(26,46,30,0.95);
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  #lightbox.open { opacity: 1; pointer-events: all; }
+  #lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  #lightbox-close {
+    position: absolute;
+    top: 1.5rem; right: 1.5rem;
+    width: 40px; height: 40px;
+    background: none;
+    border: 1px solid rgba(245,240,232,0.3);
+    color: var(--cream);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s;
+  }
+  #lightbox-close:hover { border-color: var(--accent); color: var(--accent); }
+
   /* ---- PŘEDNÁŠKY ---- */
   #prednasky { background: var(--cream); }
   .prednasky-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
@@ -319,7 +355,7 @@
     border: 1px solid rgba(26,46,30,0.12);
     overflow: hidden;
     transition: border-color 0.3s, transform 0.25s;
-    cursor: default;
+    cursor: pointer;
   }
   .prednasky-card:hover { border-color: rgba(200,169,110,0.5); transform: translateY(-4px); }
   .prednasky-img {
@@ -336,6 +372,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: default;
   }
   .prednasky-img-placeholder svg { width: 40px; height: 40px; stroke: rgba(26,46,30,0.2); fill: none; }
   .prednasky-caption { padding: 1.25rem; }
@@ -467,6 +504,11 @@
 <button id="back-top" aria-label="Zpět nahoru" onclick="window.scrollTo({top:0,behavior:'smooth'})">
   <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
+
+<div id="lightbox">
+  <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="" />
+</div>
 
 <div id="cursor-dot"></div>
 
@@ -627,6 +669,9 @@ fetch('./content.json')
         ? `<img class="prednasky-img" src="${p.foto}" alt="${p.nazev}" />`
         : `<div class="prednasky-img-placeholder"><svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`;
       el.innerHTML = `${imgHtml}<div class="prednasky-caption"><div class="prednasky-name">${p.nazev}</div><div class="prednasky-meta">${p.datum}${p.misto ? ' · ' + p.misto : ''}</div></div>`;
+      if (p.foto) {
+        el.addEventListener('click', () => openLightbox(p.foto, p.nazev));
+      }
       predGrid.appendChild(el);
     });
 
@@ -687,6 +732,26 @@ fetch('./content.json')
 
   })
   .catch(err => console.error('Chyba:', err));
+
+// LIGHTBOX
+function openLightbox(src, alt) {
+  const lb = document.getElementById('lightbox');
+  const img = document.getElementById('lightbox-img');
+  img.src = src;
+  img.alt = alt;
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('lightbox').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeLightbox();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLightbox();
+});
 
 // PROGRESS BAR + SCROLL
 const progressBar = document.getElementById('progress-bar');
