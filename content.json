@@ -43,9 +43,9 @@
       "foto": "CYBERSEC.png"
     },
     {
-      "nazev": "Název akce",
-      "datum": "Datum",
-      "foto": ""
+      "nazev": "Jak se připravit na regulaci cybersec?",
+      "datum": "2025",
+      "foto": "NIS2Ready.png"
     }
   ],
   "timeline": [
@@ -119,7 +119,7 @@
   ],
   "kontakt": {
     "text": "Chcete vědět víc? Klidně se mi ozvěte.",
-    "email": "ondrej.hany@gmail.com",
+    "email": "ondrej@hanak.legal",
     "email_label": "Napsat e-mail",
     "linkedin": "https://www.linkedin.com/in/ondrahanak/"
   }
