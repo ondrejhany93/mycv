@@ -311,6 +311,12 @@
     color: var(--cream);
     line-height: 1.3;
   }
+  .zajima-desc {
+    font-size: 0.85rem;
+    line-height: 1.65;
+    color: var(--sage-light);
+    font-weight: 300;
+  }
 
   /* ---- LIGHTBOX ---- */
   #lightbox {
@@ -516,9 +522,9 @@
   <ul class="nav-links">
     <li><a href="#specializace" data-section="specializace">Specializace</a></li>
     <li><a href="#zajima-me" data-section="zajima-me">Směřování</a></li>
+    <li><a href="#ai-praxe" data-section="ai-praxe">AI & automatizace</a></li>
     <li><a href="#prednasky" data-section="prednasky">Přednášky</a></li>
     <li><a href="#zkusenosti" data-section="zkusenosti">Zkušenosti</a></li>
-    <li><a href="#testimonials" data-section="testimonials">Reference</a></li>
     <li><a href="#kontakt" data-section="kontakt">Kontakt</a></li>
   </ul>
 </nav>
@@ -586,6 +592,55 @@
   </div>
 </section>
 
+<section id="ai-praxe">
+  <div class="container">
+    <p class="section-label reveal">Nejen používám – umím nastavit</p>
+    <h2 class="section-title reveal">AI & automatizace</h2>
+    <div class="zajima-grid">
+
+      <div class="zajima-item reveal">
+        <div class="zajima-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <path d="M8 21h8M12 17v4"/>
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 7v0M12 13v0"/>
+          </svg>
+        </div>
+        <div class="zajima-title">Vlastní AI pro kancelář</div>
+        <div class="zajima-desc">Umím nastavit privátní AI řešení přímo na serveru kanceláře – vaše data nikdy neopustí vaši infrastrukturu.</div>
+      </div>
+
+      <div class="zajima-item reveal reveal-delay-1">
+        <div class="zajima-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div class="zajima-title">Automatizace rutiny</div>
+        <div class="zajima-desc">Pomůžu ušetřit hodiny týdně automatizací opakujících se úkolů – od zpracování dokumentů po onboarding klientů.</div>
+      </div>
+
+      <div class="zajima-item reveal reveal-delay-2">
+        <div class="zajima-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10 9 9 9 8 9"/>
+          </svg>
+        </div>
+        <div class="zajima-title">AI v právní práci</div>
+        <div class="zajima-desc">Pracuji s AI při vyhledávání judikatury, revizi smluv a draftingu – rychleji a přesněji, bez ztráty právního úsudku.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <section id="prednasky">
   <div class="container">
     <p class="section-label reveal">Sdílím znalosti</p>
@@ -602,13 +657,6 @@
   </div>
 </section>
 
-<section id="testimonials">
-  <div class="container">
-    <p class="section-label reveal">Co říkají klienti</p>
-    <h2 class="section-title reveal">Reference</h2>
-    <div class="testimonial-grid" id="testimonial-grid"></div>
-  </div>
-</section>
 
 <section id="zajmy">
   <div class="container">
@@ -686,16 +734,6 @@ fetch('./content.json')
       timeline.appendChild(el);
     });
 
-    // TESTIMONIALS
-    const tGrid = document.getElementById('testimonial-grid');
-    DATA.testimonials.forEach((t, i) => {
-      const el = document.createElement('div');
-      el.className = 'testimonial-card reveal';
-      if (i > 0) el.classList.add('reveal-delay-' + i);
-      el.innerHTML = `<div class="testimonial-quote">"</div><p class="testimonial-text">${t.text}</p><div class="testimonial-author">${t.author}</div><div class="testimonial-position">${t.position}</div>`;
-      tGrid.appendChild(el);
-    });
-
     // ZÁJMY
     const zajmyGrid = document.getElementById('zajmy-grid');
     DATA.zajmy.forEach((z, i) => {
@@ -768,7 +806,7 @@ window.addEventListener('scroll', () => {
   if (heroRight) heroRight.style.transform = `translateY(${scrollTop * 0.12}px)`;
 
   // ACTIVE NAV
-  const sections = ['specializace','zajima-me','prednasky','zkusenosti','testimonials','zajmy','kontakt'];
+  const sections = ['specializace','zajima-me','ai-praxe','prednasky','zkusenosti','zajmy','kontakt'];
   let current = '';
   sections.forEach(id => {
     const el = document.getElementById(id);
