@@ -317,6 +317,14 @@
     color: var(--sage-light);
     font-weight: 300;
   }
+  #ai-praxe { background: var(--cream); }
+  #ai-praxe .section-label { color: var(--sage); }
+  #ai-praxe .section-title { color: var(--forest); }
+  #ai-praxe .zajima-desc { color: var(--text-mid); }
+  #ai-praxe .zajima-title { color: var(--forest); }
+  #ai-praxe .zajima-item { border-color: rgba(26,46,30,0.12); }
+  #ai-praxe .zajima-item:hover { border-color: rgba(200,169,110,0.4); }
+  #ai-praxe .zajima-icon { color: var(--forest-light); }
 
   /* ---- LIGHTBOX ---- */
   #lightbox {
@@ -355,7 +363,7 @@
   #lightbox-close:hover { border-color: var(--accent); color: var(--accent); }
 
   /* ---- PŘEDNÁŠKY ---- */
-  #prednasky { background: var(--cream); }
+  #prednasky { background: var(--cream-dark); }
   .prednasky-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
   .prednasky-card {
     border: 1px solid rgba(26,46,30,0.12);
@@ -386,7 +394,7 @@
   .prednasky-meta { font-size: 0.82rem; color: var(--text-light); }
 
   /* ---- ČASOVÁ OSA ---- */
-  #zkusenosti { background: var(--cream-dark); }
+  #zkusenosti { background: var(--cream); }
   .timeline { position: relative; padding-left: 2rem; }
   .timeline::before {
     content: '';
@@ -403,7 +411,7 @@
     width: 8px; height: 8px;
     border-radius: 50%;
     background: var(--forest-light);
-    border: 2px solid var(--cream-dark);
+    border: 2px solid var(--cream);
     box-shadow: 0 0 0 1px var(--forest-light);
   }
   .timeline-item.highlight::before { background: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
