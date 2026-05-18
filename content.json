@@ -44,7 +44,7 @@
     },
     {
       "nazev": "Jak se připravit na regulaci cybersec?",
-      "datum": "2025",
+      "datum": "2025, NIS2Ready",
       "foto": "NIS2Ready.png"
     }
   ],
@@ -103,12 +103,12 @@
   "zajmy": [
     {
       "nazev": "Sport",
-      "popis": "Kolo & triatlon",
+      "popis": "Hlavně tenis, kolo & triatlon",
       "ikona": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><circle cx=\"5.5\" cy=\"17.5\" r=\"3.5\"/><circle cx=\"18.5\" cy=\"17.5\" r=\"3.5\"/><path d=\"M15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-3 11.5L9 10l4-1 2 3h4\"/><path d=\"M5.5 17.5L9 10\"/></svg>"
     },
     {
       "nazev": "Četba",
-      "popis": "Hlavně non-fiction",
+      "popis": "Beletrie i non-fiction",
       "ikona": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M4 19.5A2.5 2.5 0 0 1 6.5 17H20\"/><path d=\"M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z\"/></svg>"
     },
     {
